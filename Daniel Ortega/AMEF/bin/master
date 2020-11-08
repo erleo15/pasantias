@@ -1,0 +1,4 @@
+#!/bin/bash
+JAR=`ls target/amef-*.jar`
+
+exec java -cp $JAR amef.Master "$@"

@@ -1,0 +1,105 @@
+### AWS S3 Properties
+
+    ## Data
+
+        # AWS S3 data bucket prefix for public datasets (No need to change, unless you want to process other data than CC)
+        dataBucket = commoncrawl
+
+        # Common Crawl data bucket (Change depending on the dataset you want to process)
+        dataPrefix = crawl-data
+
+    ## Deploy
+
+        # Your S3 Bucket for the code to be deployed on the EC2 instances
+        deployBucket = <edit>
+
+        # Name of the jar of the WDC Framework, after uploading to S3 (No need to change)
+        deployFilename = dataproc.jar
+
+    ## Results
+
+        # Your S3 Bucket name for results
+        resultBucket = <edit>
+
+
+### AWS EC2 Properties
+
+    # EC2 region to launch instances. Fastest download speeds will be achieved in us-east-1 but its prices are higher.
+    # us-east-2 seems like a good option.
+    ec2region = us-east-1
+
+    # AMI which will be launched. Must use apt as package manager. AMI ids change by region.
+    # Ubuntu 18:
+    # ami-0d5d9d301c853a04a (us-east-2)
+    # ami-07d0cf3af28718ef8 (us-east-1)
+    ec2ami = ami-07d0cf3af28718ef8
+
+
+    # Please check the available instance descriptions for the right instance type for your process. (Make sure #CPU, #RAM and #DISC is enough for your job!)
+    # Pricing: https://aws.amazon.com/ec2/pricing/
+    # EC2 Instant Types: https://aws.amazon.com/ec2/instance-types/
+    # c5n instances are centered around network speed and computing so those may be a good option
+    ec2instancetype = c5n.18xlarge
+
+    # Name of the key pair you can use to access the instances. It must exist in the ec2egion selected
+    ec2keypair = DataprocNodes
+
+
+### AWS IAM Properties
+
+    # Name of the role that will be created for the instances
+    roleName = dataproc-worker
+
+
+### AWS SQS Properties
+
+    # AWS Queue endpoint (No need to change)
+    queueRegion = us-east-1
+
+    # Name of the queue (No need to change, unless you are running other SQS with a similar name)
+    queueName = dataprocjobs
+
+    # Data Suffix for file processing and filtering (Change according to the files you want to put into the queue, e.g. .warc.gz, .arc.gz, ...)
+    dataSuffix = .warc.gz
+
+    # Batch size for filling the queue (No need to change)
+    batchSize = 10
+
+    # Time the SQS waits for a message - object taken from the queue - to be returned, no matter if successful processed or not (Change according to your average processing time of one file. Good results with 3x the average processing time)
+    jobTimeLimit = 1000
+
+
+
+### Processing
+
+    # Depends on the inout file format. Takes every entry of the file, stores statistics and calls the selected extractor
+    # for each one.
+    # Available processors:
+    # WARC : takes WARC and calls an HTML extractor
+    processor = WARC
+
+    # Parses data from one entry.
+    # Available extractors:
+    # HTML
+    # Metadata : extracts metadata nested with Microdata, RDFa and JSON-LD (Currently optimized for accessibility metadata)
+    extractor = HTMLMetadata 
+
+### MongoDB Properties
+
+    mongoUrl = localhost
+
+    mongoPort = 27017
+
+    # Name of the database
+    database = <edit>
+
+    ## Authentication -- Comment if no credentials are to be used
+
+        # User name
+        #userName = <edit>
+
+        # Password
+        #password = <edit>
+
+        # Database where the user is created
+        #userDB = <edit>

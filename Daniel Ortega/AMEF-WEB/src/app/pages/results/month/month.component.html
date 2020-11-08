@@ -1,0 +1,74 @@
+<base-card-title class="page-title">{{monthName}}</base-card-title>
+<div class="mdl-grid mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-cell--top">
+  <div *ngIf='props !== null' class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+    <base-card>
+      <base-card-title>Property distribution</base-card-title>
+      <base-card-body>
+        <pie-chart [data]='props'></pie-chart>
+      </base-card-body>
+    </base-card>
+  </div>
+  <base-card *ngIf="byProp.length > 0" class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+    <base-card-title>Values per property
+      <mat-radio-group [(ngModel)]="byPropForm">
+        <mat-radio-button value="chart">Chart</mat-radio-button>
+        <mat-radio-button value="table">Table</mat-radio-button>
+      </mat-radio-group>
+    </base-card-title>
+    <base-card-body class="mdl-grid">
+      <div *ngFor='let prop of byProp' class="mdl-cell mdl-cell--6-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+        <base-card >
+          <base-card-title>{{prop.property}}</base-card-title>
+          <base-card-body >
+            <div *ngIf= 'byPropForm == "chart"'>
+              <pie-chart [data]='prop.values'></pie-chart>
+            </div>
+            <div *ngIf= 'byPropForm == "table"' class="data-table-component">
+              <table class="mdl-data-table mdl-js-data-table data-table">
+                <thead>
+                <tr>
+                  <th class="mdl-data-table__cell--non-numeric">
+                    <span>Value</span>
+                  </th>
+                  <th class="mdl-data-table__cell--non-numeric">
+                      <span>Total</span>
+                  </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor='let value of prop.values'>
+                  <td class="mdl-data-table__cell--non-numeric">{{ value.key }}</td>
+                  <td class="mdl-data-table__cell--non-numeric">{{ value.total }}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </base-card-body>
+        </base-card>
+      </div>
+    </base-card-body>
+  </base-card>
+  <base-card *ngIf="domains.length > 0" class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+    <base-card-title>Sites with metadata per domain</base-card-title>
+    <base-card-body class="mdl-grid data-table-component domains-table-component">
+      <table class="mdl-data-table mdl-js-data-table data-table domains-table">
+        <thead>
+        <tr>
+          <th class="mdl-data-table__cell--non-numeric" ng-click="sortDomainsName()">
+            <span>Domain</span>
+          </th>
+          <th class="mdl-data-table__cell--non-numeric" (click)="sortDomainsTotal()">
+              <span>Sites</span>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor='let domain of domains'>
+          <td class="mdl-data-table__cell--non-numeric">{{ domain.key }}</td>
+          <td class="mdl-data-table__cell--non-numeric">{{ domain.total }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </base-card-body>
+  </base-card>
+</div>

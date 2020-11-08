@@ -1,0 +1,55 @@
+.page-title{
+    font-size: 20px;
+}
+
+.mat-radio-button {
+    margin-left: 16px;
+  }
+
+.data-table-component {
+    width: 100%;
+
+    .data-table {
+        width: 100%;
+
+        td {
+        font-size: 0.95rem;
+        padding: 5px 8px;
+        }
+
+        th {
+        cursor: pointer;
+        }
+
+        td:last-of-type,
+        th:last-of-type {
+        width: 16px;
+        }
+
+        td:first-of-type,
+        th:first-of-type {
+        padding-left: 16px;
+        }
+    }
+
+
+    .label__availability {
+        margin-right: 2px;
+    }
+
+    .mdl-card__title {
+        background-color: darkgray;
+    }
+
+    .data-table{
+        overflow: scroll;
+    }
+
+
+}
+
+.domains-table-component{
+    max-height: 75vh ;
+    overflow: scroll !important;
+    overflow-x: hidden !important;
+}
