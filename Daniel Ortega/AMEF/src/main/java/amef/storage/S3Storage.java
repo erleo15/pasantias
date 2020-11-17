@@ -28,7 +28,7 @@ public class S3Storage extends RestS3Service implements OutStorage, InStorage {
     public void store(String fileKey, Document stats, List<Document> data) {
         try{
             System.out.println("S3 Storage " + resultBucket+ "\n" + new S3Bucket(resultBucket).getLocation());
-            S3Object statsObject = new S3Object("stats/"+fileKey,stats.toJson());
+            S3Object statsObject = new S3Object("status/"+fileKey,stats.toJson());
             putObject(resultBucket, statsObject);
 
             if(!data.isEmpty()) {
@@ -48,7 +48,7 @@ public class S3Storage extends RestS3Service implements OutStorage, InStorage {
             for (S3Object object : objects) {
                 if (object.getKey() != null
                         && (object.getKey().startsWith("pages/") || object
-                        .getKey().startsWith("stats/"))) {
+                        .getKey().startsWith("status/"))) {
                     deleteObject(resultBucket, object.getKey());
                 }
             }
@@ -61,7 +61,7 @@ public class S3Storage extends RestS3Service implements OutStorage, InStorage {
             for (S3Object object : objects) {
                 if (object.getKey() != null
                         && (object.getKey().startsWith("pages/"+date) || object
-                        .getKey().startsWith("stats/"+date))) {
+                        .getKey().startsWith("status/"+date))) {
                     deleteObject(resultBucket, object.getKey());
                 }
             }

@@ -17,7 +17,7 @@ public class MongoStorage implements OutStorage {
 
     public MongoStorage (MongoDatabase database){
         // get globals collection and create unique index on the field date if it doesn't exist
-        statsCollection = database.getCollection("stats");
+        statsCollection = database.getCollection("status");
         BasicDBObject statsIndex = new BasicDBObject()
                 .append("date",1)
                 .append("file",1);
