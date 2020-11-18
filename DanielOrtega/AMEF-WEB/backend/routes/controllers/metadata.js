@@ -1,25 +1,15 @@
 import { pipeline } from 'stream';
 import { environment } from '../../environment.ts';
 
-var mongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/amef";
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
 
 export const evolution = (req, res) => {
-    mongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
+    MongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
         if (err) throw err;
         var dbo = db.db(environment.database);
-        console.log("Recuperando datos de la base de datos"); 
-        var cursor = dbo.collection("status").find();
-        
-        cursor.each(function(err, doc) {
-            console.log("si recuperamos, eso creo jejeje");
-            console.log(doc);
-        });
-
-
-        //dbo.collection("status").aggregate( [
-            dbo.collection("pages").aggregate( [
-                {$group: { _id: "$date", searched : {$sum: '$total'}, found : {$sum: '$found'}}},
+        dbo.collection("status").aggregate( [ //cambio en todas las instancias stats --> status
+                {$group: { _id: "$total"/*$date a $total*/ , searched : {$sum: '$ready'/*$total a $ready*/}, found : {$sum: '$found'}}},
                 {$project: { date : '$_id', _id : 0, searched :1, found:1}},
                 {$sort : {date : 1}}
             ])
@@ -27,15 +17,9 @@ export const evolution = (req, res) => {
             function(err, result) {
                 if (err) {
                     res.status(500).send();
-                    console.log("ATENCION ERROR");
-                    console.log(err);
-                    console.log("\n\n\n");
-                    console.log(result);
                     throw err;
                 }
                 res.status(200).send(result);
-                console.log("FUE UN EXITO")
-                console.log(result);
                 db.close();
             }
         );
@@ -43,12 +27,10 @@ export const evolution = (req, res) => {
 };
 
 export const months = (req, res) => {
-    mongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
+    MongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
         if (err) throw err;
         var dbo = db.db(environment.database);
-        dbo.collection("pages").distinct("date", function(err, result) {
-
-        //dbo.collection("status").distinct("date", function(err, result) {
+        dbo.collection("status").distinct("total"/*date a total */, function(err, result) {
             if (err) {
                 res.status(500).send();
                 throw err;
@@ -60,8 +42,8 @@ export const months = (req, res) => {
 };
 
 export const monthProps = (req, res) => {
-    mongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
-        if (err) throw err;
+    MongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) { // se implemento la propiedad {useNewUrlParser: true, useUnifiedTopology: true}
+        if (err) throw err;                                                                         //debido a la antiguedad del cliente de conexion a la base de datos
         var dbo = db.db(environment.database);
         dbo.collection("pages").aggregate( [
             {$match: {date: req.params.month}},
@@ -75,7 +57,6 @@ export const monthProps = (req, res) => {
                 if (err) {
                     res.status(500).send();
                     throw err;
-                    
                 }
                 res.status(200).send(result);
                 db.close();
@@ -85,7 +66,7 @@ export const monthProps = (req, res) => {
 };
 
 export const monthByProp = (req, res) => {
-    mongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
+    MongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
         if (err) throw err;
         var dbo = db.db(environment.database);
         dbo.collection("pages").aggregate( [
@@ -114,7 +95,7 @@ export const monthByProp = (req, res) => {
 };
 
 export const monthDomains = (req, res) => {
-    mongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true},function(err, db) {
+    MongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
         if (err) throw err;
         var dbo = db.db(environment.database);
         dbo.collection("pages").aggregate( [
