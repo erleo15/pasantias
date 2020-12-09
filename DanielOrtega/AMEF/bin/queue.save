@@ -1,0 +1,29 @@
+#!/bin/bash
+#
+# Recorre todos los archivos del directorio actual y los muestra
+#
+if  [  -n "$1" ]; then # If first parameter passed then print Hi
+
+	echo "Type a number that represents, number of lines per file."
+	echo "If you want to add all lines per file to queues, press ENTER or press any key."
+
+	read -s -n 1 key  # -s: do not echo input character. -n 1: read only 1 character (separate with space)
+
+# double brackets to test, single equals sign, empty string for just 'enter' in this case...
+# if [[ ... ]] is followed by semicolon and 'then' keyword
+	if [[ $key = "" ]]; then 
+    		echo 'You pressed enter!'
+		exit 1
+	else
+    		echo "You pressed '$key'"
+	fi
+fi
+
+
+
+for i in $(ls crowl-file) #-C1
+do
+./bin/master queue -f crowl-file/$i -l $1
+echo $i
+echo $1
+done
