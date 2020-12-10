@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -24,6 +25,7 @@ import javax.swing.JOptionPane;
 public class Principal extends javax.swing.JFrame {
 
     File seleccion = null;
+    private boolean verificador1 = false, verificador2 = false, verificador3 = false, verificador4 = false;
 
     /**
      * Creates new form Principal
@@ -45,7 +47,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jtxtOutput = new javax.swing.JTextArea();
         txtLink = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btnConfigurar = new javax.swing.JButton();
@@ -58,7 +60,12 @@ public class Principal extends javax.swing.JFrame {
         chbkDirectorio = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        btnEjecutarHerramienta = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        btnBackend = new javax.swing.JButton();
+        btnFrontend = new javax.swing.JButton();
+        btnShowFrontEnd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,9 +74,9 @@ public class Principal extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel2.setText("Configuracion");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jtxtOutput.setColumns(20);
+        jtxtOutput.setRows(5);
+        jScrollPane1.setViewportView(jtxtOutput);
 
         txtLink.setEditable(false);
         txtLink.setText("https://commoncrawl.s3.amazonaws.com/");
@@ -192,29 +199,94 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
         jLabel1.setText("Ejecucion por archivo");
 
-        jToggleButton1.setText("jToggleButton1");
+        btnEjecutarHerramienta.setText("Ejecutar");
+        btnEjecutarHerramienta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEjecutarHerramientaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(291, 291, 291)
-                .addComponent(jToggleButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(238, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnEjecutarHerramienta)
+                .addGap(279, 279, 279))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(99, 99, 99)
                 .addComponent(jLabel1)
-                .addGap(206, 206, 206))
+                .addContainerGap(325, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                .addComponent(jToggleButton1)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(btnEjecutarHerramienta)
+                .addContainerGap(85, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(197, 216, 53));
+
+        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        jLabel4.setText("Resultados");
+
+        btnBackend.setText("1. Ejecutar Backend");
+        btnBackend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackendActionPerformed(evt);
+            }
+        });
+
+        btnFrontend.setText("2. Ejecutar Frontend");
+        btnFrontend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFrontendActionPerformed(evt);
+            }
+        });
+
+        btnShowFrontEnd.setText("3. Mostrar  backend");
+        btnShowFrontEnd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowFrontEndActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(115, 115, 115))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(btnBackend)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnFrontend))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(172, 172, 172)
+                        .addComponent(btnShowFrontEnd)))
+                .addContainerGap(120, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBackend)
+                    .addComponent(btnFrontend))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(btnShowFrontEnd)
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -224,20 +296,23 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(165, Short.MAX_VALUE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(271, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -248,7 +323,9 @@ public class Principal extends javax.swing.JFrame {
         if (!verificarSeleccion()) {
             //JOptionPane.showMessageDialog(null, "Atencion, proyecto no localizado. Por favor pulse en localizar proyecto para indicar la carpeta contenedora.");
             seleccionarProyecto();
-            return;
+            if (!verificarSeleccion()) {
+                return;
+            }
         }
         File archivo = null;
         FileReader fr = null;
@@ -282,6 +359,9 @@ public class Principal extends javax.swing.JFrame {
 
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Hubo un problema", "Error.", JOptionPane.ERROR_MESSAGE);
+            seleccion = null;
+            return;
         } finally {
             // En el finally cerramos el fichero, para asegurarnos
             // que se cierra tanto si todo va bien como si salta 
@@ -292,6 +372,9 @@ public class Principal extends javax.swing.JFrame {
                 }
             } catch (Exception e2) {
                 e2.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Hubo un problema", "Error.", JOptionPane.ERROR_MESSAGE);
+                seleccion = null;
+                return;
             }
         }
 
@@ -306,8 +389,17 @@ public class Principal extends javax.swing.JFrame {
             lineas = "";
         } catch (IOException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Hubo un problema", "Error.", JOptionPane.ERROR_MESSAGE);
+            seleccion = null;
+            return;
         }
 
+        int opcion = JOptionPane.showConfirmDialog(null, "Desea aplicar los cambios ahora?");
+
+        if (opcion != JOptionPane.OK_OPTION) {
+            return;
+        }
+        ejecutar("cd " + seleccion.getAbsolutePath() + " && mvn package");
     }//GEN-LAST:event_btnConfigurarActionPerformed
 
     private void txtLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtLinkMouseClicked
@@ -335,7 +427,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnAgregarColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarColaActionPerformed
         // TODO add your handling code here:
-        if(!verificarSeleccion()){
+        if (!verificarSeleccion()) {
             seleccionarProyecto();
         }
         String comando = "";
@@ -343,9 +435,9 @@ public class Principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccione el archivo de texto a procesar");
             return;
         }
-         
+
         if (txtNumeroLineas.getText().isEmpty() && !chbkDirectorio.isSelected()) {
-            int opcion = JOptionPane.showConfirmDialog(null, "Atencion no se ha indicado el numero de lineas, por tanto se procede a agregar todas las lineas por archivo.");
+            int opcion = JOptionPane.showConfirmDialog(null, "Atencion no se ha indicado el numero de lineas.\n Desea agregar todas las lineas del archivo a la cola?");
 
             if (opcion != JOptionPane.OK_OPTION) {
                 return;
@@ -356,26 +448,24 @@ public class Principal extends javax.swing.JFrame {
             comando = "cd " + seleccion.getAbsolutePath() + " && ./bin/master queue -f " + txtArchivo.getText() + " -l " + txtNumeroLineas.getText();
         }
 
-        if( chbkDirectorio.isSelected()) {
-            
-            if (txtNumeroLineas.getText().isEmpty()){
-                int opcion = JOptionPane.showConfirmDialog(null, "Atencion no se ha indicado el numero de lineas, por tanto se procede a agregar todas las lineas por archivo.");
+        if (chbkDirectorio.isSelected()) {
 
-            if (opcion != JOptionPane.OK_OPTION) {
-                return;
+            if (txtNumeroLineas.getText().isEmpty()) {
+                int opcion = JOptionPane.showConfirmDialog(null, "Atencion no se ha indicado el numero de lineas.\n Desea agregar todas las lineas de los archivos a la cola?");
+
+                if (opcion != JOptionPane.OK_OPTION) {
+                    return;
+                }
+                comando = "cd " + seleccion.getAbsolutePath() + " && ./bin/queue ";
+            } else {
+                comando = "cd " + seleccion.getAbsolutePath() + " && ./bin/queue " + txtNumeroLineas.getText();
+
             }
-             comando = "cd " + seleccion.getAbsolutePath() + " && ./bin/queue ";
-            }else{
-           comando = "cd " + seleccion.getAbsolutePath() + " && ./bin/queue " + txtNumeroLineas.getText();
-            
-            }
 
-        } 
-
-       
+        }
 
         JOptionPane.showMessageDialog(null, comando);
-        //ejecutar(comando);
+        ejecutar(comando);//linea donde se va a ejecutar el comando de linux
 
     }//GEN-LAST:event_btnAgregarColaActionPerformed
 
@@ -400,12 +490,77 @@ public class Principal extends javax.swing.JFrame {
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         }
         fileChooser.showOpenDialog(this);
-        try{
-        txtArchivo.setText(fileChooser.getSelectedFile().getAbsolutePath()); 
-        }catch(Exception e){
-            
+        try {
+            txtArchivo.setText(fileChooser.getSelectedFile().getAbsolutePath());
+        } catch (Exception e) {
+
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
+    Hilo h1 = new Hilo("comando", "hilo Ejecutar ");
+    Thread hilo1 = new Thread(h1);
+    private void btnEjecutarHerramientaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarHerramientaActionPerformed
+        // TODO add your handling code here:
+
+        if (!verificador1) {
+            hilo1=new Thread(h1);
+            hilo1.start();
+            verificador1 = true;
+            btnEjecutarHerramienta.setText("Detener ejcucion de la herramienta");
+        } else {
+            hilo1.stop();
+            verificador1 = false;
+            btnEjecutarHerramienta.setText("Ejecutar Herramienta");
+        }
+    }//GEN-LAST:event_btnEjecutarHerramientaActionPerformed
+    Hilo h2 = new Hilo("comando", "hilo Encender Backend ");
+    Thread hilo2 = new Thread(h2);
+    private void btnBackendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackendActionPerformed
+        // TODO add your handling code here:
+        if (!verificador2) {
+hilo2=new Thread(h2);
+            hilo2.start();
+            verificador2 = true;
+            btnBackend.setText("Detener Ejecucion Backend");
+        } else {
+            hilo2.stop();
+            verificador2=false;
+            btnBackend.setText("1. Ejecutar Backend");
+        }
+    }//GEN-LAST:event_btnBackendActionPerformed
+    Hilo h3 = new Hilo("comando", "hilo Encender Frontend");
+    Thread hilo3 = new Thread(h3);
+    private void btnFrontendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFrontendActionPerformed
+        // TODO add your handling code here:
+
+        if (!verificador3) {
+hilo3=new Thread(h3);
+            hilo3.start();
+            verificador3 = true;
+        } else {
+            hilo3.stop();
+            verificador3 = false;
+        }
+    }//GEN-LAST:event_btnFrontendActionPerformed
+    
+    public void goToURL(String URL){
+           if (java.awt.Desktop.isDesktopSupported()) {
+            java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+
+            if (desktop.isSupported(java.awt.Desktop.Action.BROWSE)) {
+                try {
+                    java.net.URI uri = new java.net.URI(URL);
+                    desktop.browse(uri);
+                } catch (URISyntaxException | IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+    }
+    private void btnShowFrontEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowFrontEndActionPerformed
+        // TODO add your handling code here:
+       // goToURL("http://localhost:4200/");
+        goToURL("https://google.com");
+    }//GEN-LAST:event_btnShowFrontEndActionPerformed
 
     /**
      * @param args the command line arguments
@@ -456,6 +611,8 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public void ejecutar(String comando) {
+        jtxtOutput.setText("");
+        JOptionPane.showMessageDialog(null, "Espere un momento por favor......\n");
         String s = null;
 
         try {
@@ -474,7 +631,7 @@ public class Principal extends javax.swing.JFrame {
             System.out.println("Ésta es la salida standard del comando:\n");
             while ((s = stdInput.readLine()) != null) {
                 System.out.println(s);
-                jTextArea1.append(s + "\n");
+                jtxtOutput.append(s + "\n");
             }
 
             // Leemos los errores si los hubiera
@@ -482,28 +639,36 @@ public class Principal extends javax.swing.JFrame {
                     .println("Ésta es la salida standard de error del comando (si la hay):\n");
             while ((s = stdError.readLine()) != null) {
                 System.out.println(s);
+                jtxtOutput.append(s + "\n");
             }
 
         } catch (IOException e) {
             System.out.println("Excepción: ");
             e.printStackTrace();
-            System.exit(-1);
+            //System.exit(-1);
         }
+
+        JOptionPane.showMessageDialog(null, "Se termino de ejecutar el proceso.");
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarCola;
+    private javax.swing.JButton btnBackend;
     private javax.swing.JButton btnConfigurar;
+    private javax.swing.JButton btnEjecutarHerramienta;
+    private javax.swing.JButton btnFrontend;
     private javax.swing.JButton btnSeleccionar;
+    private javax.swing.JButton btnShowFrontEnd;
     private javax.swing.JCheckBox chbkDirectorio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JTextArea jtxtOutput;
     private javax.swing.JLabel lblArchivoDirectorio;
     private javax.swing.JLabel lblNumeroLineas;
     private javax.swing.JTextField txtArchivo;
