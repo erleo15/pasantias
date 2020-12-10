@@ -97,8 +97,9 @@ public class Worker extends ProcessingNode {
 
 			Runtime.getRuntime().addShutdownHook(interrupted);
                         
-                        String link = "https://commoncrawl.s3.amazonaws.com/";
-			inputFileKey = link + message.getBody();
+                        //String link = "https://commoncrawl.s3.amazonaws.com/";
+			String link =  getOrCry("link");
+                        inputFileKey = link + message.getBody();
 
 			InputStream file = getInStorage().getFile(inputFileKey);
 

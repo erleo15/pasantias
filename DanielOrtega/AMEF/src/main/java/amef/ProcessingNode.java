@@ -51,7 +51,7 @@ public abstract class ProcessingNode {
 		if (config == null) {
 			config = loadConfig(PFILENAME);
 		}
-                //System.out.println(config.getFileName()+" base path mejen");
+                
 		return config;
 	}
 
