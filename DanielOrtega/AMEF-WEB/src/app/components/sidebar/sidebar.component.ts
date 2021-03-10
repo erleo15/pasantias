@@ -30,6 +30,7 @@ export class SidebarComponent extends BaseSidebarComponent {
 
   public title = 'amef';
   private menuTemplate() {return [
+    { name: 'Compilar', link: '/app/results/tool', icon: 'trending_up' },
     { name: 'Evolution', link: '/app/results/evolution', icon: 'trending_up' },
     { name: 'Monthly results', children: this.availableMonthsMenu, icon: 'pie_chart'},
   ];

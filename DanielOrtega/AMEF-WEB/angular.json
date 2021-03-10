@@ -17,7 +17,7 @@
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
             "assets": [
-              "src/assets",
+              "src/assets"
             ],
             "styles": [
               "src/theme/styles.scss"
@@ -50,11 +50,13 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "material-angular-dashboard:build"
+            "browserTarget": "material-angular-dashboard:build",
+            "publicHost":"http://172.16.7.96:4200"
           },
           "configurations": {
             "production": {
               "browserTarget": "material-angular-dashboard:build:production"
+              
             }
           }
         },

@@ -5,6 +5,7 @@ import { LayoutsModule } from './layouts';
 import { CommonLayoutComponent } from './layouts/common-layout';
 import { DashboardComponent } from './pages/dashboard';
 import { CompareComponent } from './pages/results/compare';
+import { ToolComponent } from './pages/results/tool';
 import { MonthComponent } from './pages/results/month';
 import { ErrorComponent } from './pages/pages/error';
 
@@ -19,6 +20,7 @@ import { ErrorComponent } from './pages/pages/error';
             { path: 'results', children: [
                 { path: '', redirectTo: 'evolution', pathMatch: 'full' },
                 { path: 'evolution', component: CompareComponent, pathMatch: 'full' },
+                { path: 'tool', component: ToolComponent, pathMatch: 'full' },
                 { path: 'month/:month', component: MonthComponent, pathMatch: 'full' },
               ],
             }

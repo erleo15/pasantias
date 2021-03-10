@@ -28,11 +28,27 @@ public class Hilo implements Runnable{
         this.comando = comando;
         this.nombre = nombre;
     }
+
+    public String getComando() {
+        return comando;
+    }
+
+    public void setComando(String comando) {
+        this.comando = comando;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
     
     
     @Override
     public void run() { 
-        /*
+        
         JOptionPane.showMessageDialog(null,"Ejecutando el proceso......\n");
         String s = null;
         
@@ -67,8 +83,8 @@ public class Hilo implements Runnable{
             //System.exit(-1);
         }
         
-        JOptionPane.showMessageDialog(null, "Se termino de ejecutar el proceso.");*/
-        
+        JOptionPane.showMessageDialog(null, "Se termino de ejecutar el proceso.");
+        /*
         for(int i =0;i<50;i++){
             try {
                 Thread.sleep(1000);
@@ -76,7 +92,7 @@ public class Hilo implements Runnable{
             } catch (InterruptedException ex) {
                 Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        }*/
     }
     
 }

@@ -1,13 +1,14 @@
-import { pipeline } from 'stream';
+
 import { environment } from '../../environment.ts';
 
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/";
+var url = "mongodb://172.16.7.96:27017/";
 
 export const evolution = (req, res) => {
     MongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
         if (err) throw err;
         var dbo = db.db(environment.database);
+        console.log(`probando evolution`);
         dbo.collection("status").aggregate( [ //cambio en todas las instancias stats --> status
                 {$group: { _id: "$total"/*$date a $total*/ , searched : {$sum: '$ready'/*$total a $ready*/}, found : {$sum: '$found'}}},
                 {$project: { date : '$_id', _id : 0, searched :1, found:1}},
@@ -25,6 +26,29 @@ export const evolution = (req, res) => {
         );
     });
 };
+
+export const tool = (req, res) => { 
+    MongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db(environment.database); 
+        dbo.collection("status").aggregate( [ //cambio en todas las instancias stats --> status
+                {$group: { _id: "$total"/*$date a $total*/ , searched : {$sum: '$ready'/*$total a $ready*/}, found : {$sum: '$found'}}},
+                {$project: { date : '$_id', _id : 0, searched :1, found:1}},
+                {$sort : {date : 1}}
+            ])
+        .toArray(
+            function(err, result) {
+                if (err) {
+                    res.status(500).send();
+                    throw err;
+                }
+                res.status(200).send(result);
+                db.close();
+            }
+        );
+    });
+};
+
 
 export const months = (req, res) => {
     MongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
@@ -45,6 +69,7 @@ export const monthProps = (req, res) => {
     MongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) { // se implemento la propiedad {useNewUrlParser: true, useUnifiedTopology: true}
         if (err) throw err;                                                                         //debido a la antiguedad del cliente de conexion a la base de datos
         var dbo = db.db(environment.database);
+        console.log(req.params.month);
         dbo.collection("pages").aggregate( [
             {$match: {date: req.params.month}},
             {$unwind: '$items'},
@@ -95,6 +120,7 @@ export const monthByProp = (req, res) => {
 };
 
 export const monthDomains = (req, res) => {
+   
     MongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
         if (err) throw err;
         var dbo = db.db(environment.database);
@@ -116,3 +142,102 @@ export const monthDomains = (req, res) => {
         );
     });
 };
+
+
+ 
+
+export const configurarLink = (req, res) => {
+    var aux = "https://commoncrawl.s3.amazonaws.com/";
+    console.log(req.body);
+    console.log("hola a todos ")
+    var linkFile = req.body.linkFile
+    //comando =  "cd ../../AMEF && ./bin/master queue -f warc.paths";
+    //implementacion con consola de linux 
+    
+    var terminal = require('child_process').spawn('bash');  
+    terminal.stdout.on('data', function (data) { 
+        console.log('stdout: ' + data); 
+        console.error(`stderr: ${data}`);
+    });
+
+    terminal.on('exit', function (code,message) { 
+        console.log('child process exited with code ' + code); 
+    }); 
+    
+    setTimeout( 
+        function() { 
+            console.log('Sending stdin to terminal'); 
+            var comando = "wget "+linkFile+" && gzip -d warc.paths.gz";
+            console.log(comando)
+            terminal.stdin.write(comando);
+            console.log('Ending terminal session'); 
+            terminal.stdin.end(); 
+            res.status(200).send({mensaje : "ok configurarLink"});
+        },4000
+    );
+    
+   /*  
+//////2
+    var linkFile = req.body.linkFile
+    var terminal2 = require('child_process').spawn('bash');  
+    terminal2.stdout.on('data', function (data) { 
+        console.log('stdout: ' + data); 
+    });
+
+    terminal2.on('exit', function (code,message) { 
+        console.log('child process exited with code ' + code); 
+        
+    }); 
+    
+    setTimeout( 
+        function() { 
+            console.log('Sending stdin to terminal'); 
+            var comando = "gzip -d warc.paths.gz";
+            console.log(comando)
+            terminal2.stdin.write(comando);
+            console.log('Ending terminal session'); 
+            terminal.stdin.end(); 
+        }, 10000
+    );
+    */
+}
+
+export const getNumeroLineasFile = (req, res) => {
+   var fs = require('fs')
+    var contents = fs.readFileSync("warc.paths");
+    var lines = contents.toString().split('\n').length-1;
+    console.log(lines);
+    
+        res.status(200).send({lineas : lines});
+    
+}
+
+export const agregarCola = (req,res)=>{
+    console.log(req.body);
+    var linkFile = req.body.linkFile
+    var lineasNumber = req.body.numeroLinea
+    //comando =  "cd ../../AMEF && ./bin/master queue -f warc.paths";
+    //implementacion con consola de linux 
+    
+    var terminal = require('child_process').spawn('bash');  
+    terminal.stdout.on('data', function (data) { 
+        console.log('stdout: ' + data); 
+        console.error(`stderr: ${data}`);
+    });
+
+    terminal.on('exit', function (code,message) { 
+        console.log('child process exited with code ' + code); 
+    }); 
+    
+    setTimeout( 
+        function() { 
+            console.log('Sending stdin to terminal'); 
+            var comando = "rm -rf warc.paths* && wget "+linkFile+" && gzip -d warc.paths.gz && cd ../../AMEF && ./bin/master queue -f ../AMEF-WEB/backend/warc.paths -l "+lineasNumber +" && cd ../AMEF-WEB/backend/";
+            console.log(comando)
+            terminal.stdin.write(comando);
+            console.log('Ending terminal session'); 
+            terminal.stdin.end(); 
+            res.status(200).send({mensaje : "ok agregar cola"});
+        }, 10000
+    );
+}

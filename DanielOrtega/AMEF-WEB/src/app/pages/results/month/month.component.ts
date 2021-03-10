@@ -42,8 +42,7 @@ export class MonthComponent implements OnInit {
     });
   }
 
-  sortDomainsName(){
-    console.log("LOOJKNHKLJNLOKN");
+  sortDomainsName(){ 
     this.domains = this.domains.sort(function (a, b) {
       if (a.domain > b.domain) {
           return -1;

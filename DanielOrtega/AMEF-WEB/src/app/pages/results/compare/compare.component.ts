@@ -17,12 +17,12 @@ export class CompareComponent implements OnInit {
 
   ngOnInit() {
     this.metadataService.getEvolution().subscribe((res) => {
-      console.log("Estamos emn ngOnInit");
+      console.log("Estamos emn ngOnInit Evolution");
       
       this.percentageData = res.map(function (date) { return { label: nameMonth(date.date) , value: (100*(date.found/date.searched)), tooltip: date.found + " out of " + date.searched}})
       this.totalData = res.map(function (date) { return { label: nameMonth(date.date) , value: date.found, tooltip: date.found}})
     });
-    console.log(this.percentageData.toString());
+    //console.log(this.percentageData.toString());
   }
 
 }

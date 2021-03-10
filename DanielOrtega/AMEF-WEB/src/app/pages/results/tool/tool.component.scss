@@ -1,0 +1,16 @@
+@import '~theme/helpers';
+
+.compare{
+    .mdl-grid{
+        height: 100%;
+        .mdl-cell{
+
+            height: 45%;
+
+            base-card-body{
+                height: 100%;
+            }
+        }
+    }
+
+}
