@@ -16,7 +16,7 @@ export class ToolComponent implements OnInit {
   numeroLinea: number = 0;
   numero: number = 0;
   linkFile: string = "";
-  lineMax = null;
+  lineMax: string = "";
   mensaje = "El numero de lineas es: 0" 
   mensajeCola= "";
 
@@ -45,6 +45,7 @@ export class ToolComponent implements OnInit {
           l = res['lineas'];
           console.log(l+"ahora ahroa ")
           this.mensaje = "Finalizó ejecucion.\nEl numero de lineas es: "+l;
+          this.numeroLinea = l
        })
      
       console.log(l+"bjhsdsdv")
@@ -59,18 +60,30 @@ export class ToolComponent implements OnInit {
     return  this.metadataService.getNumeroLineasFile(valor)
   }
 
-  public agregarCola(){
-    
-   if(!confirm()){
-       return; 
-   }
+  public agregarCola(){ 
+    this.comprobar(this.lineMax)
+    if(this.comprobar(this.lineMax)){
+        alert("Ingrese el numero de lineas correctamente"); 
+        return;
+    } 
+
    this.mensajeCola = "Agregando a la cola de trabajo";
-   this.metadataService.agregarCola({link:this.linkFile,numero:this.lineMax}).subscribe((res) => 
+    this.metadataService.agregarCola({link:this.linkFile,numero:this.lineMax}).subscribe((res) => 
     {
-    
+
     });
 
   }
+
+    private  comprobar(parametro:string){
+      var numeros = parametro.split('-') 
+      var bandera: Boolean =parseInt(numeros[0])<1 || parseInt(numeros[1])<1 || parseInt(numeros[0])>parseInt(this.lineMax) || parseInt(numeros[1])<1  ;
+
+     return  (numeros.length<1 || numeros.length>2 || (numeros.length>=2 && numeros[1].length==0)|| this.lineMax.length==0 || this.lineMax.indexOf('-')==-1) 
+     ||  (parseInt(numeros[0]) > parseInt(numeros[1])) 
+     || bandera;
+     
+    }
 
 
 

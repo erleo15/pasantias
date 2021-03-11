@@ -167,7 +167,7 @@ export const configurarLink = (req, res) => {
     setTimeout( 
         function() { 
             console.log('Sending stdin to terminal'); 
-            var comando = "wget "+linkFile+" && gzip -d warc.paths.gz";
+            var comando = "rm -rf warc.paths.* && wget "+linkFile+" && gzip -d -f warc.paths.gz";
             console.log(comando)
             terminal.stdin.write(comando);
             console.log('Ending terminal session'); 
@@ -215,7 +215,7 @@ export const getNumeroLineasFile = (req, res) => {
 export const agregarCola = (req,res)=>{
     console.log(req.body);
     var linkFile = req.body.linkFile
-    var lineasNumber = req.body.numeroLinea
+    var lineasNumber = toString(req.body.numeroLinea).split('-')
     //comando =  "cd ../../AMEF && ./bin/master queue -f warc.paths";
     //implementacion con consola de linux 
     
@@ -232,7 +232,8 @@ export const agregarCola = (req,res)=>{
     setTimeout( 
         function() { 
             console.log('Sending stdin to terminal'); 
-            var comando = "rm -rf warc.paths* && wget "+linkFile+" && gzip -d warc.paths.gz && cd ../../AMEF && ./bin/master queue -f ../AMEF-WEB/backend/warc.paths -l "+lineasNumber +" && cd ../AMEF-WEB/backend/";
+            var comando = "rm -rf warc.paths.* && wget "+linkFile+" && gzip -d -f warc.paths.gz";
+           //sed -n 1,7p var comando = "rm -rf warc.paths.* && wget "+linkFile+" && gzip -d warc.paths.gz && cd ../../AMEF && ./bin/master queue -f ../AMEF-WEB/backend/warc.paths -l "+lineasNumber +" && cd ../AMEF-WEB/backend/";
             console.log(comando)
             terminal.stdin.write(comando);
             console.log('Ending terminal session'); 
