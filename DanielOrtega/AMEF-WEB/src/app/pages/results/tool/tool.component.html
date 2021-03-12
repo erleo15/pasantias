@@ -37,7 +37,7 @@
               
               <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-{{ color }}" (click)="agregarCola()">
                 Agregar a la cola
-              </button>
+              </button><br>
               <label class="mdl-textfield" >{{mensajeCola}}</label>
             </div>
           </div>
@@ -49,9 +49,12 @@
       <base-card>
         <base-card-title>Correr</base-card-title>
         <base-card-body>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-{{ color }}">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-{{ color }}" (click)="iniciar()">
           Ejecutar Herramienta
-        </button>
+        </button>&nbsp;&nbsp;
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-{{ color }}" (click)="parar()">
+          Parar Herramienta
+        </button><br>
       </base-card-body>
       </base-card>
     </div>

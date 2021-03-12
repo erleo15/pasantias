@@ -3,6 +3,7 @@ import { environment } from '../../environment.ts';
 
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://172.16.7.96:27017/";
+var numero= []
 
 export const evolution = (req, res) => {
     MongoClient.connect(url,{useNewUrlParser: true, useUnifiedTopology: true}, function(err, db) {
@@ -148,8 +149,7 @@ export const monthDomains = (req, res) => {
 
 export const configurarLink = (req, res) => {
     var aux = "https://commoncrawl.s3.amazonaws.com/";
-    console.log(req.body);
-    console.log("hola a todos ")
+    console.log(req.body); 
     var linkFile = req.body.linkFile
     //comando =  "cd ../../AMEF && ./bin/master queue -f warc.paths";
     //implementacion con consola de linux 
@@ -157,11 +157,17 @@ export const configurarLink = (req, res) => {
     var terminal = require('child_process').spawn('bash');  
     terminal.stdout.on('data', function (data) { 
         console.log('stdout: ' + data); 
-        console.error(`stderr: ${data}`);
+        //console.error(`stderr: ${data}`);
     });
 
-    terminal.on('exit', function (code,message) { 
+    terminal.on('exit', function (code) { 
         console.log('child process exited with code ' + code); 
+        if(code==0){
+            res.status(200).send({mensaje : "OK"});
+        }else{
+            res.status(200).send({mensaje : "Fallo interno del servidor"});
+
+        }
     }); 
     
     setTimeout( 
@@ -172,34 +178,11 @@ export const configurarLink = (req, res) => {
             terminal.stdin.write(comando);
             console.log('Ending terminal session'); 
             terminal.stdin.end(); 
-            res.status(200).send({mensaje : "ok configurarLink"});
+            
         },4000
     );
     
-   /*  
-//////2
-    var linkFile = req.body.linkFile
-    var terminal2 = require('child_process').spawn('bash');  
-    terminal2.stdout.on('data', function (data) { 
-        console.log('stdout: ' + data); 
-    });
-
-    terminal2.on('exit', function (code,message) { 
-        console.log('child process exited with code ' + code); 
-        
-    }); 
-    
-    setTimeout( 
-        function() { 
-            console.log('Sending stdin to terminal'); 
-            var comando = "gzip -d warc.paths.gz";
-            console.log(comando)
-            terminal2.stdin.write(comando);
-            console.log('Ending terminal session'); 
-            terminal.stdin.end(); 
-        }, 10000
-    );
-    */
+ 
 }
 
 export const getNumeroLineasFile = (req, res) => {
@@ -215,30 +198,35 @@ export const getNumeroLineasFile = (req, res) => {
 export const agregarCola = (req,res)=>{
     console.log(req.body);
     var linkFile = req.body.linkFile
-    var lineasNumber = toString(req.body.numeroLinea).split('-')
-    //comando =  "cd ../../AMEF && ./bin/master queue -f warc.paths";
-    //implementacion con consola de linux 
+    var numero1 = req.body.numero.toString().split('-')[0]
+    var numero2 = req.body.numero.toString().split('-')[1] 
     
     var terminal = require('child_process').spawn('bash');  
     terminal.stdout.on('data', function (data) { 
         console.log('stdout: ' + data); 
-        console.error(`stderr: ${data}`);
+        //console.error(`stderr: ${data}`);
     });
 
-    terminal.on('exit', function (code,message) { 
+    terminal.on('exit', function (code) { 
         console.log('child process exited with code ' + code); 
+        if(code==0){
+            res.status(200).send({mensaje : "OK"});
+        }else{
+            res.status(200).send({mensaje : "Fallo interno del servidor"});
+
+        }
     }); 
     
     setTimeout( 
         function() { 
             console.log('Sending stdin to terminal'); 
-            var comando = "rm -rf warc.paths.* && wget "+linkFile+" && gzip -d -f warc.paths.gz";
-           //sed -n 1,7p var comando = "rm -rf warc.paths.* && wget "+linkFile+" && gzip -d warc.paths.gz && cd ../../AMEF && ./bin/master queue -f ../AMEF-WEB/backend/warc.paths -l "+lineasNumber +" && cd ../AMEF-WEB/backend/";
+            var comando = `rm -rf warc.paths.* && wget ${linkFile} && gzip -d -f warc.paths.gz && sed -n ${numero1},${numero2}p warc.paths > warc.paths.bak && rm -rf warc.paths && mv warc.paths.bak warc.paths && cd ../../AMEF && ./bin/master clearqueue && ./bin/master queue -f ../AMEF-WEB/backend/warc.paths  && cd ../AMEF-WEB/backend/`;
             console.log(comando)
             terminal.stdin.write(comando);
             console.log('Ending terminal session'); 
-            terminal.stdin.end(); 
-            res.status(200).send({mensaje : "ok agregar cola"});
-        }, 10000
+            terminal.stdin.end();  
+        }, 1000
     );
 }
+
+ 

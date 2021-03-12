@@ -37,20 +37,17 @@ export class ToolComponent implements OnInit {
     
     this.mensaje = "Ejecutando...\nEl numero de lineas es: 0";
     console.log(this.linkFile+" concatenando");
-      var  a = await this.metadataService.configurarLink(this.linkFile).toPromise()
-      console.log(a+"aaaaaaaaaaaaaaaaaaaaaa")
-   // setTimeout(() => {
+      var  a = await this.metadataService.configurarLink(this.linkFile).toPromise() 
       var l =0
        this.getNumeroLineasFile(this.linkFile).subscribe((res)=>{
           l = res['lineas'];
           console.log(l+"ahora ahroa ")
           this.mensaje = "Finalizó ejecucion.\nEl numero de lineas es: "+l;
           this.numeroLinea = l
+          this.lineMax = "1-"+l
        })
      
       console.log(l+"bjhsdsdv")
-      
-    //}, 6000); 
 
   }
 
@@ -70,7 +67,12 @@ export class ToolComponent implements OnInit {
    this.mensajeCola = "Agregando a la cola de trabajo";
     this.metadataService.agregarCola({link:this.linkFile,numero:this.lineMax}).subscribe((res) => 
     {
-
+      if(res['mensaje'] == "OK"){
+        this.mensajeCola = "Se agregó satisfactoriamente"
+      }else{
+        this.mensajeCola = "Hubo un fallo en el servidor."
+      }
+      
     });
 
   }
