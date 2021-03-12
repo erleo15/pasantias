@@ -151,13 +151,10 @@ export const configurarLink = (req, res) => {
     var aux = "https://commoncrawl.s3.amazonaws.com/";
     console.log(req.body); 
     var linkFile = req.body.linkFile
-    //comando =  "cd ../../AMEF && ./bin/master queue -f warc.paths";
-    //implementacion con consola de linux 
     
     var terminal = require('child_process').spawn('bash');  
     terminal.stdout.on('data', function (data) { 
         console.log('stdout: ' + data); 
-        //console.error(`stderr: ${data}`);
     });
 
     terminal.on('exit', function (code) { 
@@ -179,7 +176,7 @@ export const configurarLink = (req, res) => {
             console.log('Ending terminal session'); 
             terminal.stdin.end(); 
             
-        },4000
+        },1000
     );
     
  
@@ -204,7 +201,6 @@ export const agregarCola = (req,res)=>{
     var terminal = require('child_process').spawn('bash');  
     terminal.stdout.on('data', function (data) { 
         console.log('stdout: ' + data); 
-        //console.error(`stderr: ${data}`);
     });
 
     terminal.on('exit', function (code) { 

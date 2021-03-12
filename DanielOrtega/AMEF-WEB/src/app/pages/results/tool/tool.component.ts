@@ -32,33 +32,38 @@ export class ToolComponent implements OnInit {
     }); 
   }
   
-  async  configurarLink(){
+  public configurarLink(){
     
-    
-    this.mensaje = "Ejecutando...\nEl numero de lineas es: 0";
-    console.log(this.linkFile+" concatenando");
-      var  a = await this.metadataService.configurarLink(this.linkFile).toPromise() 
-      var l =0
-       this.getNumeroLineasFile(this.linkFile).subscribe((res)=>{
-          l = res['lineas'];
-          console.log(l+"ahora ahroa ")
-          this.mensaje = "Finalizó ejecucion.\nEl numero de lineas es: "+l;
-          this.numeroLinea = l
-          this.lineMax = "1-"+l
-       })
+    if(this.linkFile.length==0){
+      alert('Ingrese un link ');
+      return 
+    }
+    this.mensaje = "Ejecutando...\nEl numero de lineas es: 0"; 
+    this.metadataService.configurarLink(this.linkFile).subscribe((res)=>{
+      if(res['mensaje'] != "OK"){
+        this.mensaje = "Hubo un fallo del servidor"
+        return;
+      }
+       this.getNumeroLineasFile(this.linkFile).subscribe((res)=>{ 
+        this.mensaje = "Finalizó ejecucion.\nEl numero de lineas es: "+res['lineas'];
+        this.numeroLinea = res['lineas']
+        this.lineMax = "1-"+res['lineas']
+     }) 
+    }); 
+      
+      
      
-      console.log(l+"bjhsdsdv")
 
   }
 
-  public getNumeroLineasFile(valor){
-    console.log(valor+" numeroLineas");
+  public getNumeroLineasFile(valor){ 
      
     return  this.metadataService.getNumeroLineasFile(valor)
   }
 
   public agregarCola(){ 
-    this.comprobar(this.lineMax)
+    this.mensajeCola=""
+    this.comprobar(this.lineMax) 
     if(this.comprobar(this.lineMax)){
         alert("Ingrese el numero de lineas correctamente"); 
         return;
