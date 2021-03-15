@@ -17,8 +17,10 @@ export class ToolComponent implements OnInit {
   numero: number = 0;
   linkFile: string = "";
   lineMax: string = "";
+  txtArea: string = "";
   mensaje = "El numero de lineas es: 0" 
-  mensajeCola= "";
+  mensajeCola = "";
+  mensajeGuardar = "";
 
   constructor(private metadataService: MetadataService) { }
 
@@ -50,15 +52,49 @@ export class ToolComponent implements OnInit {
         this.lineMax = "1-"+res['lineas']
      }) 
     }); 
-      
-      
-     
-
   }
 
   public getNumeroLineasFile(valor){ 
      
     return  this.metadataService.getNumeroLineasFile(valor)
+  }
+
+  public iniciar(){
+    this.metadataService.getIniciar().subscribe((res)=>{
+      alert(res['mensaje'])
+    });
+  }
+
+  public detener(){
+    this.metadataService.getParar().subscribe((res)=>{
+      alert(res['mensaje'])
+    });
+  }
+
+  public cargar(){
+    this.mensajeGuardar = ""
+    this.metadataService.getCargar().subscribe((res)=>{
+      this.txtArea = res['lineas']
+    });
+  }
+
+  public cargarRespaldo(){
+    this.mensajeGuardar = ""
+    this.metadataService.getCargarRespaldo().subscribe((res)=>{
+      this.txtArea = res['lineas']
+    });
+  }
+
+  public guardar(){
+    if(this.txtArea.toString().length==0){
+      alert('Ingrese contenido en el campo Search.txt')
+      return
+    }
+    this.mensajeGuardar = "Ejecutando..."
+    this.metadataService.getGuardar(this.txtArea).subscribe((res)=>{
+      this.mensajeGuardar = "Finalizó Ejecucion..."
+      alert(res['mensaje'])
+    });
   }
 
   public agregarCola(){ 
@@ -83,7 +119,8 @@ export class ToolComponent implements OnInit {
   }
 
     private  comprobar(parametro:string){
-      var numeros = parametro.split('-') 
+      var numeros = parametro.split('-')  
+    
       var bandera: Boolean =parseInt(numeros[0])<1 || parseInt(numeros[1])<1 || parseInt(numeros[0])>parseInt(this.lineMax) || parseInt(numeros[1])<1  ;
 
      return  (numeros.length<1 || numeros.length>2 || (numeros.length>=2 && numeros[1].length==0)|| this.lineMax.length==0 || this.lineMax.indexOf('-')==-1) 

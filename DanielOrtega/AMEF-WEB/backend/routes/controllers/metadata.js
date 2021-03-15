@@ -225,4 +225,136 @@ export const agregarCola = (req,res)=>{
     );
 }
 
+
+export const iniciar = (req,res)=>{
+    console.log(req.body);
+    
+    var terminal = require('child_process').spawn('bash');  
+    terminal.stdout.on('data', function (data) { 
+        console.log('stdout: ' + data); 
+    });
+
+    terminal.on('exit', function (code) { 
+        console.log('child process exited with code ' + code); 
+        
+    }); 
+    
+    setTimeout( 
+        function() { 
+            console.log('Sending stdin to terminal'); 
+            var comando = "cd ../../AMEF && ./bin/master run"
+            console.log(comando)
+            terminal.stdin.write(comando);
+            console.log('Ending terminal session'); 
+            terminal.stdin.end();  
+            res.status(200).send({mensaje: "inicio correctamente"})
+        }, 1000
+    );
+}
+ 
+
+
+export const parar = (req,res)=>{
+    console.log(req.body); 
+    var terminal = require('child_process').spawn('bash');  
+    terminal.stdout.on('data', function (data) { 
+        console.log('stdout: ' + data); 
+    });
+
+    terminal.on('exit', function (code) { 
+        console.log('child process exited with code ' + code); 
+        if(code==0){
+            res.status(200).send({mensaje : "OK"});
+        }else{
+            res.status(200).send({mensaje : "Fallo interno del servidor"});
+
+        }
+    }); 
+    
+    setTimeout( 
+        function() { 
+            console.log('Sending stdin to terminal'); 
+            var comando = `killall java`;
+            console.log(comando)
+            terminal.stdin.write(comando);
+            console.log('Ending terminal session'); 
+            //res.status(200).send({mensaje : "OK"});
+            terminal.stdin.end();  
+        }, 1000
+    );
+}
+ 
+
+
+export const cargar = (req,res)=>{
+    console.log(req.body); 
+    var fs = require('fs')
+    var contents = fs.readFileSync("../../AMEF/src/main/resources/search.txt");
+    var lines = contents.toString();
+    console.log(lines);
+
+    res.status(200).send({lineas : lines});
+     
+}
+
+export const cargarRespaldo = (req,res)=>{
+    console.log(req.body); 
+    var fs = require('fs')
+    var contents = fs.readFileSync("../../AMEF/src/main/resources/search.txt.bak");
+    var lines = contents.toString();
+    console.log(lines);
+
+    res.status(200).send({lineas : lines});
+     
+}
+ 
+
+export const guardar = (req,res)=>{
+    console.log(req.body); 
+    var lineas = req.body.lineas
+    var fs = require('fs')
+    //var contents = fs.readFileSync("../../AMEF/src/main/resources/search.txt.bak");
+    fs.writeFile("../../AMEF/src/main/resources/search.txt", lineas, function (err) {
+        // la funcion es la que maneja lo que sucede despues de termine el evento
+        if (err) {
+           // res.status(200).send({mensaje: "No se guardo el contenido"});
+            return console.log(err);
+        }
+        // las funciones de javascript en nodejs son asincronicas
+        // por lo tanto lo que se quiera hacer debe hacerse dentro de la funcion que maneja el evento
+        // si uno declara una variable arriba de la funcion, la manipula dentro y la quiere usar
+        // despues afuera, se corre el riezgo de que nunca se realice la manipulacion.
+        console.log("The file was saved!");
+       // res.status(200).send({mensaje: "OK"});
+    });
+
+    
+
+    var terminal = require('child_process').spawn('bash');  
+    terminal.stdout.on('data', function (data) { 
+        console.log('stdout: ' + data); 
+    });
+
+    terminal.on('exit', function (code) { 
+        console.log('child process exited with code ' + code); 
+        if(code==0){
+            res.status(200).send({mensaje : "Se guardo correctamente"});
+        }else{
+            res.status(200).send({mensaje : "Fallo interno del servidor"});
+
+        }
+    }); 
+    
+    setTimeout( 
+        function() { 
+            console.log('Sending stdin to terminal'); 
+            var comando = `cd ../../AMEF && mvn package && cd ../AMEF-WEB/backend`;
+            console.log(comando)
+            terminal.stdin.write(comando);
+            console.log('Ending terminal session'); 
+            //res.status(200).send({mensaje : "OK"});
+            terminal.stdin.end();  
+        }, 1000
+    );
+}
  

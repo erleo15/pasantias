@@ -4,8 +4,7 @@ import { environment } from '../../environments/environment';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable()
-export class MetadataService {
-  //public filterValue$ = new Subject();
+export class MetadataService { 
 
   constructor(private http: HttpClient) {
   }
@@ -13,35 +12,47 @@ export class MetadataService {
   private url = `${environment.apiBaseUrl}`;
 
 
-  public configurarLink(link){ 
-    
-    //console.log("metodo configurarLink service.ts"+link+" otro otro "+this.url);    
+  public configurarLink(link){   
     return this.http.post<any[]>(`${this.url}/configurarLink`, { linkFile: link});
  
   }
 
 
-  public agregarCola(parametros){ 
-    
-    console.log("metodo agregarCola service.ts");    
+  public agregarCola(parametros){    
     return this.http.post<any[]>(`${this.url}/agregarCola`, { linkFile: parametros.link, numero:parametros.numero});
- 
+
   }
 
-  public getNumeroLineasFile(link){ 
-    console.log("metodo getNumeroLineas service.ts");    
+  public getNumeroLineasFile(link){    
     return this.http.post<any[]>(`${this.url}/numeroLineasFile`,{ linkFile: link });
  
   }
 
-  public getEvolution(){
-    //console.log('llega al metodo gettol');
-    //return this.http.get<any[]>(`${this.url}/tool`);
+  public getEvolution(){ 
       return this.http.get<any[]>(`${this.url}/evolution`);
   }
 
+  public getIniciar(){ 
+    return this.http.get<any[]>(`${this.url}/iniciar`);
+  }
+
+  public getParar(){ 
+    return this.http.get<any[]>(`${this.url}/parar`);
+  }
+
+  public getCargar(){ 
+    return this.http.get<any[]>(`${this.url}/cargar`);
+  }
+
+  public getCargarRespaldo(){ 
+    return this.http.get<any[]>(`${this.url}/cargarRespaldo`);
+  }
+
+  public getGuardar(lineas){ 
+    return this.http.post<any[]>(`${this.url}/guardar`,{ lineas: lineas });
+  }
+
   public getTool(){
-    console.log('llega al metodo gettol');
     return this.http.get<any[]>(`${this.url}/tool`);
 }
 

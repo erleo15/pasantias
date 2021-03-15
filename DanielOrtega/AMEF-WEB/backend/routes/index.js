@@ -12,5 +12,12 @@ metadataRouter.get('/month/:month/props', metadata.monthProps);
 metadataRouter.get('/month/:month/domains', metadata.monthDomains); 
 metadataRouter.post('/configurarLink', metadata.configurarLink);
 metadataRouter.post('/numeroLineasFile', metadata.getNumeroLineasFile); 
-metadataRouter.post('/agregarCola', metadata.agregarCola); 
+metadataRouter.post('/agregarCola', metadata.agregarCola);
+metadataRouter.post('/guardar', metadata.guardar);
+metadataRouter.get('/iniciar',metadata.iniciar); 
+metadataRouter.get('/parar',metadata.parar); 
+metadataRouter.get('/cargar',metadata.cargar);
+metadataRouter.get('/cargarRespaldo',metadata.cargarRespaldo);
+
+
 export default metadataRouter;

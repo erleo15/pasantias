@@ -1,3 +1,16 @@
+<style>
+  .mat-form-field.stretch-height,
+.mat-form-field.stretch-height .mat-form-field-flex,
+.mat-form-field.stretch-height textarea {
+  height: 100%;
+}
+.mat-form-field.stretch-height .mat-form-field-wrapper {
+  height: calc(100% - 1.34375em);
+}
+.mat-form-field.stretch-height .mat-form-field-infix {
+  height: calc(100% - 1.34375em - 2px);
+}
+</style>
 <div class="mdl-grid mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-cell--top">
   <div *ngIf = 'percentageData !== null && percentageData.length > 0' class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
     <base-card>
@@ -37,10 +50,26 @@
               
               <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-{{ color }}" (click)="agregarCola()">
                 Agregar a la cola
-              </button><br>
+              </button>
               <label class="mdl-textfield" >{{mensajeCola}}</label>
             </div>
           </div>
+          <h4>Search.txt </h4><br>{{mensajeGuardar}}
+          <textarea  style="height: 5cm;width: 100%; resize: none;"  [(ngModel)]="txtArea">
+          </textarea>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-{{ color }}" (click)="cargar()">
+            <i class="material-icons">loop</i>
+            Cargar
+          </button>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-{{ color }}" (click)="guardar()">
+            <i class="material-icons">save</i>
+            Guardar
+          </button>
+          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-{{ color }}" (click)="cargarRespaldo()">
+            <i class="material-icons">loop</i>
+            Cargar Original
+          </button>
+          
         <!--</form>-->
       </base-card-body>
     </base-card>
@@ -52,7 +81,7 @@
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-{{ color }}" (click)="iniciar()">
           Iniciar Procesamiento
         </button>&nbsp;&nbsp;
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-{{ color }}" (click)="parar()">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button--colored-{{ color }}" (click)="detener()">
           Detener Procesamiento
         </button><br>
       </base-card-body>
