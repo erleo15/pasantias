@@ -1,18 +1,6 @@
-<style>
-  .mat-form-field.stretch-height,
-.mat-form-field.stretch-height .mat-form-field-flex,
-.mat-form-field.stretch-height textarea {
-  height: 100%;
-}
-.mat-form-field.stretch-height .mat-form-field-wrapper {
-  height: calc(100% - 1.34375em);
-}
-.mat-form-field.stretch-height .mat-form-field-infix {
-  height: calc(100% - 1.34375em - 2px);
-}
-</style>
+ 
 <div class="mdl-grid mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-cell--top">
-  <div *ngIf = 'percentageData !== null && percentageData.length > 0' class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+  <div  class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
     <base-card>
       <base-card-title>Configuracion</base-card-title>
       <base-card-body>
@@ -74,7 +62,7 @@
       </base-card-body>
     </base-card>
   </div>
-  <div *ngIf = 'totalData !== null && totalData.length > 0' class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+  <div  class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
       <base-card>
         <base-card-title>Correr</base-card-title>
         <base-card-body>

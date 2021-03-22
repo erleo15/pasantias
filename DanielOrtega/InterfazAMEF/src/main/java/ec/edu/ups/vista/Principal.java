@@ -463,9 +463,11 @@ public class Principal extends javax.swing.JFrame {
                 return;
             }
             comando = "cd " + seleccion.getAbsolutePath() + " && ./bin/master queue -f " + txtArchivo.getText();
+            System.out.println(comando);
 
         } else {
             comando = "cd " + seleccion.getAbsolutePath() + " && ./bin/master queue -f " + txtArchivo.getText() + " -l " + txtNumeroLineas.getText();
+            System.out.println(comando);
         }
 
         if (chbkDirectorio.isSelected()) {
