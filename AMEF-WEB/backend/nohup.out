@@ -1,0 +1,52 @@
+
+> server@1.0.0 start /home/usreducrowl/pasantias/AMEF-WEB/backend
+> babel-node --presets env,stage-2 index.js
+
+Server running at http://localhost:3000/
+probando evolution
+
+> server@1.0.0 start /home/usreducrowl/pasantias/AMEF-WEB/backend
+> babel-node --presets env,stage-2 index.js
+
+Server running at http://localhost:3000/
+probando evolution
+probando evolution
+{}
+accessibilityFeature:alternativeText,annotations,audioDescription,bookmarks,braille,captions,ChemML,describedMath,displayTransformability,highContrastAudio,highContrastDisplay,index,largePrint,latex,longDescription,MathML,none,printPageNumbers,readingOrder,rubyAnnotations,signLanguage,structuralNavigation,synchronizedAudioText,tableOfContents,taggedPDF,tactileGraphic,tactileObject,timingControl,transcript,ttsMarkup,unlocked
+accessibilityHazard:flashing,noFlashingHazard,motionSimulation,noMotionSimulationHazard,sound,noSoundHazard,unknown,none
+accessibilityAPI:AndroidAccessibility,ARIA,ATK,AT-SPI,BlackberryAccessibility,iAccessible2,iOSAccessibility,JavaAccessibility,MacOSXAccessibility,MSAA,UIAutomation
+accessibilityControl:fullKeyboardControl,fullMouseControl,fullSwitchControl,fullTouchControl,fullVideoControl,fullVoiceControl
+accessMode:auditory,chartOnVisual,chemOnVisual,colorDependent,diagramOnVisual,mathOnVisual,musicOnVisual,tactile,textOnVisual,textual,visual
+accessModeSufficient:auditory,tactile,textual,visual
+accessibilitySummary
+
+
+probando evolution
+2020-01
+probando evolution
+probando evolution
+{}
+accessibilityFeature:alternativeText,annotations,audioDescription,bookmarks,braille,captions,ChemML,describedMath,displayTransformability,highContrastAudio,highContrastDisplay,index,largePrint,latex,longDescription,MathML,none,printPageNumbers,readingOrder,rubyAnnotations,signLanguage,structuralNavigation,synchronizedAudioText,tableOfContents,taggedPDF,tactileGraphic,tactileObject,timingControl,transcript,ttsMarkup,unlocked
+accessibilityHazard:flashing,noFlashingHazard,motionSimulation,noMotionSimulationHazard,sound,noSoundHazard,unknown,none
+accessibilityAPI:AndroidAccessibility,ARIA,ATK,AT-SPI,BlackberryAccessibility,iAccessible2,iOSAccessibility,JavaAccessibility,MacOSXAccessibility,MSAA,UIAutomation
+accessibilityControl:fullKeyboardControl,fullMouseControl,fullSwitchControl,fullTouchControl,fullVideoControl,fullVoiceControl
+accessMode:auditory,chartOnVisual,chemOnVisual,colorDependent,diagramOnVisual,mathOnVisual,musicOnVisual,tactile,textOnVisual,textual,visual
+accessModeSufficient:auditory,tactile,textual,visual
+accessibilitySummary
+
+
+{}
+accessibilityFeature:alternativeText,annotations,audioDescription,bookmarks,braille,captions,ChemML,describedMath,displayTransformability,highContrastAudio,highContrastDisplay,index,largePrint,latex,longDescription,MathML,none,printPageNumbers,readingOrder,rubyAnnotations,signLanguage,structuralNavigation,synchronizedAudioText,tableOfContents,taggedPDF,tactileGraphic,tactileObject,timingControl,transcript,ttsMarkup,unlocked
+accessibilityHazard:flashing,noFlashingHazard,motionSimulation,noMotionSimulationHazard,sound,noSoundHazard,unknown,none
+accessibilityAPI:AndroidAccessibility,ARIA,ATK,AT-SPI,BlackberryAccessibility,iAccessible2,iOSAccessibility,JavaAccessibility,MacOSXAccessibility,MSAA,UIAutomation
+accessibilityControl:fullKeyboardControl,fullMouseControl,fullSwitchControl,fullTouchControl,fullVideoControl,fullVoiceControl
+accessMode:auditory,chartOnVisual,chemOnVisual,colorDependent,diagramOnVisual,mathOnVisual,musicOnVisual,tactile,textOnVisual,textual,visual
+accessModeSufficient:auditory,tactile,textual,visual
+accessibilitySummary
+
+
+{}
+Sending stdin to terminal
+killall java
+Ending terminal session
+child process exited with code 1
