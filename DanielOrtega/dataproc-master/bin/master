@@ -1,4 +1,0 @@
-#!/bin/bash
-JAR=`ls target/dataproc.jar`
-
-exec java -cp $JAR CLI "$@"
