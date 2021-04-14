@@ -2,7 +2,7 @@
 import { environment } from '../../environment.ts';
 
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://172.16.7.96:27017/";
+var url = "mongodb://localhost:27017/";
 var numero= []
 
 export const evolution = (req, res) => {
@@ -348,7 +348,7 @@ export const guardar = (req,res)=>{
     setTimeout( 
         function() { 
             console.log('Sending stdin to terminal'); 
-            var comando = `cd ../../AMEF && mvn package && cd ../AMEF-WEB/backend`;
+            var comando = `cd ../../AMEF && rm -rf target && mvn package && cd ../AMEF-WEB/backend`;
             console.log(comando)
             terminal.stdin.write(comando);
             console.log('Ending terminal session'); 

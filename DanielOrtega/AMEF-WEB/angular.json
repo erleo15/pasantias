@@ -34,10 +34,10 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
+              "aot": false,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true,
+              "buildOptimizer": false,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -51,7 +51,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "material-angular-dashboard:build",
-            "publicHost":"http://172.16.7.96:4200"
+            "publicHost":"http://localhost:4200"
           },
           "configurations": {
             "production": {

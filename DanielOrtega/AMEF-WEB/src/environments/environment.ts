@@ -5,5 +5,6 @@
 
 export const environment = {
   production: true,//false
-  apiBaseUrl: 'http://172.16.7.96:3000'
+  //apiBaseUrl:// 'https://fema.edutech-project.org:3000'
+  apiBaseUrl: 'http://localhost:3000'
 };

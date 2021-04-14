@@ -4,13 +4,13 @@ amef/queue/QueueMessageBatch.class
 amef/processor/SchemaWarcProcessor.class
 amef/schema/SchemaItem.class
 amef/queue/mongodb/MongoQueue.class
-amef/queue/QueueSize.class
 amef/Worker$WorkerThread$1.class
+amef/queue/QueueSize.class
 amef/Worker$WorkerThread.class
 amef/processor/SchemaHTMLExtractor.class
 amef/processor/FileProcessor.class
-amef/queue/sqs/SQSQueueMessage.class
 amef/processor/SchemaWarcProcessor$RecordWithOffsetsAndURL.class
+amef/queue/sqs/SQSQueueMessage.class
 amef/queue/sqs/SQSQueue.class
 amef/queue/QueueMessage.class
 amef/Worker$ThreadGuard.class
@@ -19,8 +19,8 @@ amef/Worker.class
 amef/Master$DateSizeRecord.class
 amef/storage/InStorage.class
 amef/ProcessingNode$1.class
-amef/storage/MongoStorage.class
 amef/processor/SchemaWDCProcessor.class
+amef/storage/MongoStorage.class
 amef/storage/OutStorage.class
 amef/schema/SchemaProperty.class
 amef/queue/sqs/SQSQueueMessageBatch.class

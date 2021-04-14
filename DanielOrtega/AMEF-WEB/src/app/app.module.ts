@@ -13,7 +13,10 @@ import { ErrorComponent } from './pages/pages/error';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, ErrorComponent],
+  declarations: [
+    AppComponent, 
+    ErrorComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -22,7 +25,7 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     MonthModule,
     ToolModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
     MetadataService
