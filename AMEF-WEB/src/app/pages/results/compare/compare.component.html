@@ -1,7 +1,7 @@
 <div class="mdl-grid mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-cell--top">
   <div *ngIf = 'percentageData !== null && percentageData.length > 0' class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
     <base-card>
-      <base-card-title>Percentage of pages with accessibility metadata</base-card-title>
+      <base-card-title>Porcentaje de páginas con metadatos de accesibilidad </base-card-title>
       <base-card-body>
         <app-discrete-bar-chart [data] = 'percentageData'></app-discrete-bar-chart>
       </base-card-body>
@@ -9,7 +9,7 @@
   </div>
   <div *ngIf = 'totalData !== null && totalData.length > 0' class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone">
       <base-card>
-        <base-card-title>Total sum of pages with accessibility metadata</base-card-title>
+        <base-card-title>Suma total de páginas con metadatos de accesibilidad </base-card-title>
         <base-card-body>
           <app-discrete-bar-chart [data] = 'totalData'></app-discrete-bar-chart>
         </base-card-body>

@@ -11,7 +11,7 @@ import { SidebarComponent as BaseSidebarComponent } from 'theme/components/sideb
 })
 export class SidebarComponent extends BaseSidebarComponent {
 
-  private availableMonthsMenu = [{name: 'Loading ...', link: "a"}];
+  private availableMonthsMenu = [{name: 'Cargando ...', link: "a"}];
   public menu;
   constructor(private metaService: MetadataService) {
     super();
@@ -28,11 +28,11 @@ export class SidebarComponent extends BaseSidebarComponent {
       })
   }
 
-  public title = 'amef';
+  public title = 'fema';
   private menuTemplate() {return [
     { name: 'Compilar', link: '/app/results/tool', icon: 'settings' },
-    { name: 'Evolution', link: '/app/results/evolution', icon: 'trending_up' },
-    { name: 'Monthly results', children: this.availableMonthsMenu, icon: 'pie_chart'},
+    { name: 'Evolucion', link: '/app/results/evolution', icon: 'trending_up' },
+    { name: 'Resultados Mensuales', children: this.availableMonthsMenu, icon: 'pie_chart'},
     { name: 'Realizado por Hernan Leon Proyecto_Edutech', link: '/'},
   ];
   }
